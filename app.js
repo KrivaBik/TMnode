@@ -51,7 +51,18 @@ app.get('/articles/:id',function (req,res) {
                article:article
            });
        }
-
+    });
+});
+app.get('/articles/edit/:id',function (req,res) {
+    Article.findById(req.params.id,function (err,article) {
+        if(err){
+            console.log(err);
+        }else {
+            res.render('edit_article',{
+                title:"edit",
+                article:article
+            });
+        }
     });
 });
 app.post('/articles/add', function(req, res){
@@ -69,6 +80,35 @@ app.post('/articles/add', function(req, res){
         }
         
     })
+});
+app.post('/articles/edit/:id', function(req, res){
+    var article = {};
+    article.title = req.body.title;
+    article.author = req.body.author;
+    article.body = req.body.body;
+
+    var query={_id:req.params.id};
+    Article.update(query, article, function (err) {
+        if (err){
+            console.log(err);
+            return;
+        }else {
+            res.redirect("/");
+        }
+
+    });
+});
+app.delete('/articles/:id', function (req, res) {
+    var query={_id:req.params.id}
+
+    Article.remove(query, function (err) {
+        if(err){
+            console.log(err);
+        }
+        res.send("success");
+        
+    });
+    
 });
 
 app.listen(3000, function(){
