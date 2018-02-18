@@ -68,7 +68,9 @@ app.get('/', function(req, res){
 });
 
 var articles=require('./routes/articles');
-app.use('/articles',articles)
+app.use('/articles',articles);
+var users=require('./routes/users');
+app.use('/users',users);
 
 app.listen(3000, function(){
   console.log('s w');
