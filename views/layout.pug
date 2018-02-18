@@ -17,14 +17,18 @@ html
                         a.nav-link(href='/')
                             | Home
                             span.sr-only (current)
-                    li.nav-item
-                        a.nav-link(href='/articles/add') Add Article
+                    if user
+                        li.nav-item
+                             a.nav-link(href='/articles/add') Add Article
                 ul.nav.navbar-nav.navbar-right
-                    li
-                        a(href='/users/register') Register
-
-                    li
-                        a(href='/users/login') Login
+                    if user
+                        li
+                            a(href='/users/logout') Logout
+                    else
+                        li
+                            a(href='/users/register') Register
+                        li
+                            a(href='/users/login') Login
 
                 //form.form-inline.mt-2.mt-md-0
                 //    input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
